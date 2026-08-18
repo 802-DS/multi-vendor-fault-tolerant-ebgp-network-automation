@@ -1,0 +1,29 @@
+- hostname: Cisco-Core-01
+  host: 192.168.153.10
+  port: 22
+  device_type: cisco_ios
+  template: cisco_gold.j2
+  vars:
+    domain_name: lab.local
+    ntp_server: 192.168.153.1
+    p2p_int: GigabitEthernet0/1
+    p2p_ip: 10.1.1.1
+    p2p_mask: 255.255.255.252
+    loopback_ip: 10.255.255.1
+    loopback_mask: 255.255.255.255
+  verify_cmd: show ip interface brief
+  verify_match: "10.1.1.1"
+
+- hostname: Juniper-Edge-01
+  host: 192.168.153.20
+  port: 22
+  device_type: juniper_junos
+  template: junos_gold.j2
+  vars:
+    domain_name: lab.local
+    ntp_server: 192.168.153.1
+    p2p_int: ge-0/0/1
+    p2p_ip: 10.1.1.2/30
+    loopback_ip: 10.255.255.2/32
+  verify_cmd: show interfaces terse
+  verify_match: "10.1.1.2"
